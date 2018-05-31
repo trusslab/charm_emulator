@@ -604,6 +604,12 @@ struct kvm_s390_irq_state {
 	__u32 reserved[4];
 };
 
+//Charm start
+struct kvm_usb_devname {
+	char dev_name[128];
+};
+//Charm end
+
 /* for KVM_SET_GUEST_DEBUG */
 
 #define KVM_GUESTDBG_ENABLE		0x00000001
@@ -1273,6 +1279,9 @@ struct kvm_s390_ucas_mapping {
 #define KVM_S390_GET_IRQ_STATE	  _IOW(KVMIO, 0xb6, struct kvm_s390_irq_state)
 /* Available with KVM_CAP_X86_SMM */
 #define KVM_SMI                   _IO(KVMIO,   0xb7)
+//Charm start
+#define KVM_CHARM_PASS_DEVNAME _IOW(KVMIO,  0xb8, struct kvm_usb_devname)
+//Charm end
 
 #define KVM_DEV_ASSIGN_ENABLE_IOMMU	(1 << 0)
 #define KVM_DEV_ASSIGN_PCI_2_3		(1 << 1)

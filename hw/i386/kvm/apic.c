@@ -17,6 +17,10 @@
 #include "sysemu/kvm.h"
 #include "target-i386/kvm_i386.h"
 
+//Charm start
+extern char usb_devname[128];
+int usb_devname_sent=0;
+//Charm end
 static inline void kvm_apic_set_reg(struct kvm_lapic_state *kapic,
                                     int reg_id, uint32_t val)
 {
@@ -111,11 +115,22 @@ static uint8_t kvm_apic_get_tpr(APICCommonState *s)
 
 static void kvm_apic_enable_tpr_reporting(APICCommonState *s, bool enable)
 {
+//Charm start
+    struct kvm_usb_devname my_kvm_usb_devname;
+//Charm end	
     struct kvm_tpr_access_ctl ctl = {
         .enabled = enable
     };
 
     kvm_vcpu_ioctl(CPU(s->cpu), KVM_TPR_ACCESS_REPORTING, &ctl);
+//Charm start
+    if(usb_devname_sent==0){
+    	fprintf(stderr,"qemu: Charm: usb_devname=%s\n",usb_devname);
+    	strcpy(my_kvm_usb_devname.dev_name,usb_devname);
+    	usb_devname_sent=1;
+    	kvm_vcpu_ioctl(CPU(s->cpu),KVM_CHARM_PASS_DEVNAME ,&my_kvm_usb_devname);
+    }
+//Charm end
 }
 
 static void kvm_apic_vapic_base_update(APICCommonState *s)

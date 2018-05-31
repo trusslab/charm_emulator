@@ -809,7 +809,10 @@ extern "C" int main(int argc, char **argv) {
             }
         }
     } else {
-        dwarning("encryption is off");
+//Charm start
+// NOTE: This warning message causes syzkaller to stop working	    
+        ////dwarning("encryption is off");
+//Charm end	
     }
 
     bool createEmptyCacheFile = false;

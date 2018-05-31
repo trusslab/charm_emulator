@@ -1416,6 +1416,14 @@ bool emulator_parseCommonCommandLineOptions(int* p_argc,
             ++(*p_argv);
             break;
         }
+//Charm start
+        if (!strcmp(opt, "-charm-usb-dev-file")) {
+            char usb_devname[128];
+            strcpy(usb_devname, *(*p_argv + 1));
+            fprintf(stderr, "usb_devname = %s\n", usb_devname);
+            break;
+        }
+//Charm end
 
         int helpStatus = emulator_parseHelpOption(opt);
         if (helpStatus >= 0) {

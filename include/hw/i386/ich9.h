@@ -175,7 +175,10 @@ Object *ich9_lpc_find(void);
 #define ICH9_LPC_RCBA_DEFAULT                   0x0
 
 #define ICH9_LPC_PIC_NUM_PINS                   16
-#define ICH9_LPC_IOAPIC_NUM_PINS                24
+//Charm start
+////#define ICH9_LPC_IOAPIC_NUM_PINS                24
+#define ICH9_LPC_IOAPIC_NUM_PINS                128
+//Charm end
 
 #define ICH9_GPIO_GSI "gsi"
 

@@ -19,8 +19,10 @@
 
 #ifndef HW_IOAPIC_H
 #define HW_IOAPIC_H
-
-#define IOAPIC_NUM_PINS 24
+//Charm start
+////#define IOAPIC_NUM_PINS 24
+#define IOAPIC_NUM_PINS 128
+//Charm end
 #define IO_APIC_DEFAULT_ADDRESS 0xfec00000
 
 void ioapic_eoi_broadcast(int vector);

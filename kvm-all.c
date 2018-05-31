@@ -690,6 +690,9 @@ kvm_check_extension_list(KVMState *s, const KVMCapabilityInfo *list)
     return NULL;
 }
 
+//Charm start
+bool charm_addresses_done = false;
+//Charm end
 static void kvm_set_phys_mem(KVMMemoryListener *kml,
                              MemoryRegionSection *section, bool add)
 {
@@ -844,6 +847,180 @@ static void kvm_set_phys_mem(KVMMemoryListener *kml,
         qemu_abort("%s: error registering slot: %s\n", __func__,
                 strerror(-err));
     }
+    //Charm start: FIXME: find a better place to do this.
+    //******************************************************//
+    //** alocate memrory slot for IO phyisical addresses ***//
+    //******************************************************//
+    if (charm_addresses_done)
+        return;
+    charm_addresses_done = true;
+    ////////////temp
+    fprintf(stderr, "CHARM:: Doing%s\n",__func__);
+    ////////////
+
+    mem = kvm_alloc_slot(kml);
+    mem->memory_size = 0xd000;
+    mem->start_addr = 0xfda00000;
+    mem->ram = ram;
+    mem->flags = kvm_mem_flags(mr);
+
+    err = kvm_set_user_memory_region(kml, mem);
+    if (err) {
+        qemu_abort("%s: error (2) registering slot: %s\n", __func__,
+                strerror(-err));
+    }
+
+    mem = kvm_alloc_slot(kml);
+    mem->memory_size = 0x1000;
+    mem->start_addr = 0xfd8c0000;
+    mem->ram = ram;
+    mem->flags = kvm_mem_flags(mr);
+
+    err = kvm_set_user_memory_region(kml, mem);
+    if (err) {
+        qemu_abort("%s: error (3) registering slot: %s\n", __func__,
+                strerror(-err));
+    }
+
+    mem = kvm_alloc_slot(kml);
+    mem->memory_size = 0xd000;
+    mem->start_addr = 0xfda10000;
+    mem->ram = ram;
+    mem->flags = kvm_mem_flags(mr);
+
+    err = kvm_set_user_memory_region(kml, mem);
+    if (err) {
+        qemu_abort("%s: error (3) registering slot: %s\n", __func__,
+                strerror(-err));
+    }
+
+    mem = kvm_alloc_slot(kml);
+    mem->memory_size = 0x1000;
+    mem->start_addr = 0xfda40000;
+    mem->ram = ram;
+    mem->flags = kvm_mem_flags(mr);
+
+    err = kvm_set_user_memory_region(kml, mem);
+    if (err) {
+        qemu_abort("%s: error (3) registering slot: %s\n", __func__,
+                strerror(-err));
+    }
+
+    mem = kvm_alloc_slot(kml);
+    mem->memory_size = 0x1000;
+    mem->start_addr = 0xfda80000;
+    mem->ram = ram;
+    mem->flags = kvm_mem_flags(mr);
+
+    err = kvm_set_user_memory_region(kml, mem);
+    if (err) {
+        qemu_abort("%s: error (3) registering slot: %s\n", __func__,
+                strerror(-err));
+    }
+
+    mem = kvm_alloc_slot(kml);
+    mem->memory_size = 0x1000;
+    mem->start_addr = 0xfda60000;
+    mem->ram = ram;
+    mem->flags = kvm_mem_flags(mr);
+
+    err = kvm_set_user_memory_region(kml, mem);
+    if (err) {
+        qemu_abort("%s: error (3) registering slot: %s\n", __func__,
+                strerror(-err));
+    }
+
+
+    mem = kvm_alloc_slot(kml);
+    mem->memory_size = 0x1000;
+    mem->start_addr = 0xfdaa0000;
+    mem->ram = ram;
+    mem->flags = kvm_mem_flags(mr);
+
+    err = kvm_set_user_memory_region(kml, mem);
+    if (err) {
+        qemu_abort("%s: error (3) registering slot: %s\n", __func__,
+                strerror(-err));
+    }
+
+
+    mem = kvm_alloc_slot(kml);
+    mem->memory_size = 0x2c000;
+    mem->start_addr = 0xfe12f000;
+    mem->ram = ram;
+    mem->flags = kvm_mem_flags(mr);
+
+    err = kvm_set_user_memory_region(kml, mem);
+    if (err) {
+        qemu_abort("%s: error (3) registering slot: %s\n", __func__,
+                strerror(-err));
+    }
+
+    mem = kvm_alloc_slot(kml);
+    mem->memory_size = 0x20000;
+    mem->start_addr = 0xfe104000;
+    mem->ram = ram;
+    mem->flags = kvm_mem_flags(mr);
+
+    err = kvm_set_user_memory_region(kml, mem);
+    if (err) {
+        qemu_abort("%s: error (3) registering slot: %s\n", __func__,
+                strerror(-err));
+    }
+
+    /* gpu-bwmon */
+    mem = kvm_alloc_slot(kml);
+    mem->memory_size = 0x1000;
+    mem->start_addr = 0xfc390000;
+    mem->ram = ram;
+    mem->flags = kvm_mem_flags(mr);
+
+    err = kvm_set_user_memory_region(kml, mem);
+    if (err) {
+        qemu_abort("%s: error (2) registering slot: %s\n", __func__,
+                strerror(-err));
+    }
+
+    /* gpu-bwmon */
+    mem = kvm_alloc_slot(kml);
+    mem->memory_size = 0x1000;
+    mem->start_addr = 0xfc381000;
+    mem->ram = ram;
+    mem->flags = kvm_mem_flags(mr);
+
+    err = kvm_set_user_memory_region(kml, mem);
+    if (err) {
+        qemu_abort("%s: error (2) registering slot: %s\n", __func__,
+                strerror(-err));
+    }
+
+    /* kgsl-3d0 */
+    mem = kvm_alloc_slot(kml);
+    mem->memory_size = 0x40000;
+    mem->start_addr = 0xfdb00000;
+    mem->ram = ram;
+    mem->flags = kvm_mem_flags(mr);
+
+    err = kvm_set_user_memory_region(kml, mem);
+    if (err) {
+        qemu_abort("%s: error (3) registering slot: %s\n", __func__,
+                strerror(-err));
+    }
+
+    /* spi */
+    mem = kvm_alloc_slot(kml);
+    mem->memory_size = 0x1000;
+    mem->start_addr = 0xf4d30000;
+    mem->ram = ram;
+    mem->flags = kvm_mem_flags(mr);
+
+    err = kvm_set_user_memory_region(kml, mem);
+    if (err) {
+        qemu_abort("%s: error (2) registering slot: %s\n", __func__,
+                strerror(-err));
+    }
+    //Charm end
+
 }
 
 static void kvm_region_add(MemoryListener *listener,

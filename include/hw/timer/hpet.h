@@ -24,7 +24,10 @@
 #define HPET_MIN_TIMERS         3
 #define HPET_MAX_TIMERS         32
 
-#define HPET_NUM_IRQ_ROUTES     32
+//Charm start
+//#define HPET_NUM_IRQ_ROUTES     32
+#define HPET_NUM_IRQ_ROUTES    128
+//Charm end
 
 #define HPET_LEGACY_PIT_INT     0
 #define HPET_LEGACY_RTC_INT     1

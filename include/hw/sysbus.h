@@ -5,9 +5,12 @@
 
 #include "hw/qdev.h"
 #include "exec/memory.h"
-
-#define QDEV_MAX_MMIO 32
-#define QDEV_MAX_PIO 32
+//Charm start
+////#define QDEV_MAX_MMIO 32
+////#define QDEV_MAX_PIO 32
+#define QDEV_MAX_MMIO 128
+#define QDEV_MAX_PIO 128
+//Charm end
 
 #define TYPE_SYSTEM_BUS "System"
 #define SYSTEM_BUS(obj) OBJECT_CHECK(BusState, (obj), TYPE_SYSTEM_BUS)

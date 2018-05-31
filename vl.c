@@ -3286,6 +3286,9 @@ static int global_init_func(void *opaque, QemuOpts *opts, Error **errp)
     return 0;
 }
 
+//Charm start
+char usb_devname[128];
+//Charm end
 static int main_impl(int argc, char** argv);
 
 #if defined(CONFIG_ANDROID)
@@ -3459,6 +3462,12 @@ static int main_impl(int argc, char** argv)
         if (argv[optind][0] != '-') {
             /* disk image */
             optind++;
+//Charm start
+        } else if (!strcmp(argv[optind], "-charm-usb-dev-file")) {
+            strcpy(usb_devname, argv[optind + 1]);
+            fprintf(stderr, "[1] usb_devname = %s\n", usb_devname);
+            optind += 2;
+//Charm end
         } else {
             const QEMUOption *popt;
 
@@ -3492,6 +3501,12 @@ static int main_impl(int argc, char** argv)
             break;
         if (argv[optind][0] != '-') {
             hda_opts = drive_add(IF_DEFAULT, 0, argv[optind++], HD_OPTS);
+//Charm start
+        } else if (!strcmp(argv[optind], "-charm-usb-dev-file")) {
+            strcpy(usb_devname, argv[optind + 1]);
+            fprintf(stderr, "[2] usb_devname = %s\n", usb_devname);
+            optind += 2;
+//Charm end
         } else {
             const QEMUOption *popt;
 

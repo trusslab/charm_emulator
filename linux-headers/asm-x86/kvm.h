@@ -76,7 +76,11 @@ struct kvm_pic_state {
 	__u8 elcr_mask;
 };
 
-#define KVM_IOAPIC_NUM_PINS  24
+//Charm start
+////#define KVM_IOAPIC_NUM_PINS  24
+#define KVM_IOAPIC_NUM_PINS 128
+//Charm end
+
 struct kvm_ioapic_state {
 	__u64 base_address;
 	__u32 ioregsel;
